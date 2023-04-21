@@ -26,7 +26,7 @@ class FontRenderer(
 
     fun flush() {
         if (numVertices > 0) {
-            
+
         }
     }
 
