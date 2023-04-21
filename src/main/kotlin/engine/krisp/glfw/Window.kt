@@ -1,14 +1,18 @@
 package engine.krisp.glfw
 
 import engine.krisp.KrispEngine
+import engine.krisp.position.Point
 import engine.krisp.utils.Color
+import org.apache.logging.log4j.Logger
 import org.lwjgl.glfw.Callbacks.glfwFreeCallbacks
 import org.lwjgl.glfw.GLFW.*
 import org.lwjgl.glfw.GLFWErrorCallback
 import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL11.*
 import org.lwjgl.system.MemoryStack.stackPush
-import java.io.OutputStream
+import kotlin.math.cos
+import kotlin.math.sin
+
 
 abstract class Window(
     title: String,
@@ -19,8 +23,8 @@ abstract class Window(
 ) {
 
     private var backgroundColor: Color = Color.BLACK
-    private var windowAddr: Long = 0L
-    private val initializeTime: Long = System.currentTimeMillis()
+    protected var windowAddr: Long = 0L
+    protected val initializeTime: Long = System.currentTimeMillis()
 
     init {
         GLFWErrorCallback.createPrint(System.err).set()
@@ -70,10 +74,13 @@ abstract class Window(
         glfwTerminate()
         glfwSetErrorCallback(null)?.free()
     }
-    open fun onUpdate() {
+    open fun onUpdate() {}
+
+    fun forceUpdate() {
         GL.createCapabilities()
         clear()
         glClear(GL_COLOR_BUFFER_BIT or GL_DEPTH_BUFFER_BIT)
+        onUpdate()
         glfwSwapBuffers(this.windowAddr)
         glfwPollEvents()
     }
@@ -108,10 +115,36 @@ abstract class Window(
         this.keybindRegistry?.unregisterKeybind(keybind)
     }
 
+    fun drawLine(p1: Point, p2: Point, color: Color) {
+        glBegin(GL_LINES)
+        glColor4f(color.red, color.green, color.blue, color.alpha)
+        glVertex2f(p1.x, p1.y)
+        glVertex2f(p2.x, p2.y)
+        glEnd()
+    }
 
+    fun drawTriangle(p1: Point, p2: Point, p3: Point, color: Color) {
+        glBegin(GL_TRIANGLES)
+        glColor4f(color.red, color.green, color.blue, color.alpha)
+        glVertex2f(p1.x, p1.y)
+        glVertex2f(p2.x, p2.y)
+        glVertex2f(p3.x, p3.y)
+        glEnd()
+    }
+
+    fun drawRect(point: Point, width: Float, height: Float, color: Color) {
+        glBegin(GL_QUADS)
+        glColor4f(color.red, color.green, color.blue, color.alpha)
+        glVertex2f(point.x, point.y)
+        glVertex2f(point.x + width, point.y)
+        glVertex2f(point.x + width, point.y + height)
+        glVertex2f(point.x, point.y + height)
+        glEnd()
+    }
 
     companion object {
-        private val logger = KrispEngine.newDedicatedLogger("Window")
+        @JvmStatic
+        protected val logger: Logger = KrispEngine.newDedicatedLogger("Window")
 
         fun newWindow(
             title: String,

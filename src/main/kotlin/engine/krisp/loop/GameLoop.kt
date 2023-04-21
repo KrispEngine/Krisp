@@ -30,7 +30,7 @@ open class GameLoop(
                 delta--
             }
 
-            window.onUpdate();
+            window.forceUpdate();
             frames++
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000
