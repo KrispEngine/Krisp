@@ -8,6 +8,7 @@ Krisp is still very much a work in progress. A list of todo's can be found down 
 - [x] Event system
 - [x] Task system
 - [x] Game Logic handling and updating (GameLoop)
+- [x] Shader support
 
 ## Todo
 - [ ] ECS (Entity Component System) based game logic and rendering
@@ -18,5 +19,4 @@ Krisp is still very much a work in progress. A list of todo's can be found down 
 - [ ] A simple GUI system
 - [ ] Sprite rendering
 - [ ] Tilemap rendering
-- [ ] Shader support
 - [ ] Support for headless servers and clients (No window rendering, only logic and physics and a way to retrieve the pixel data of the rendered scene)
