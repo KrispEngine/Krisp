@@ -29,4 +29,12 @@ import org.lwjgl.opengl.GL20.GL_VERTEX_SHADER
 
 
 class TextureRenderer {
+
+    private var vao: VAO
+    private var vbo: VBO
+    private var vectices: FloatBuffer
+
+    private var numVertices: Int
+    private var drawing: Boolean = false
+    private var font: Font? = null
 }

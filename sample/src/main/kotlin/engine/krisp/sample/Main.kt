@@ -6,6 +6,7 @@ import engine.krisp.glfw.KeybindRegistry
 import engine.krisp.glfw.Window
 import engine.krisp.loop.GameLogicHandler
 import engine.krisp.loop.GameLoop
+import engine.krisp.loop.UpdateBasedGameLoop
 import engine.krisp.sample.Main.logger
 import engine.krisp.utils.Color
 import org.lwjgl.glfw.GLFW.GLFW_KEY_W
@@ -16,7 +17,7 @@ object Main {
 
     internal fun onEnable() {
         KrispEngine.startEngine(
-            GameLoop(
+            UpdateBasedGameLoop(
                 SampleWindow(),
                 SampleGameLogic(),
                 1000L / 20L,

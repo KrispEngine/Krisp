@@ -1,30 +1,21 @@
 package engine.krisp.loop
 
 import engine.krisp.glfw.Window
-import kotlin.system.exitProcess
 
-open class GameLoop(
-    private val window: Window,
-    private val gameLogicHandler: GameLogicHandler,
-    private val updateTime: Long,
-    private var basicGameLoopMethod: BasicGameLoopMethod = BasicGameLoopMethod.verySimplyMethod()
-): Runnable {
+interface GameLoop {
 
-    private var initializeTime: Long = System.currentTimeMillis()
+    val window: Window
+    val gameLogicHandler: GameLogicHandler
 
-    fun getGameLoopActiveTime(): Long {
-        return System.currentTimeMillis() - initializeTime
+    fun getGameLoopActiveTime(): Long
+
+    fun start() {
+        run()
+        runShutdown()
     }
 
-    open fun runShutdownTasks() {
-        window.onDisable()
-        gameLogicHandler.runDisableTasks()
-        exitProcess(0)
-    }
+    fun run()
+    fun runShutdown()
 
-    override fun run() {
-        basicGameLoopMethod.run(window, updateTime, gameLogicHandler)
-        runShutdownTasks()
-    }
 
 }
