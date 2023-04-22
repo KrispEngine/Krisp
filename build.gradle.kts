@@ -11,9 +11,14 @@ val lwjglNatives = "natives-windows"
 
 repositories {
     mavenCentral()
+    maven("https://oss.sonatype.org/content/repositories/snapshots/")
+    maven("https://jitpack.io")
 }
 
 dependencies {
+
+    api("it.unimi.dsi:fastutil:8.5.11")
+    api("com.github.JCTools:JCTools:-SNAPSHOT")
 
     /* JNA for native libraries */
     api("net.java.dev.jna:jna:5.12.1")

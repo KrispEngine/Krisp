@@ -7,38 +7,10 @@ open class GameLoop(
     private val window: Window,
     private val gameLogicHandler: GameLogicHandler,
     private val updateTime: Long,
+    private var basicGameLoopMethod: BasicGameLoopMethod = BasicGameLoopMethod.verySimplyMethod()
 ): Runnable {
 
     private var initializeTime: Long = System.currentTimeMillis()
-
-    private val handleGameLoop = Runnable {
-
-        var lastTime = System.nanoTime()
-        var delta = 0.0
-        var frames = 0
-        var updates = 0
-        var timer = System.currentTimeMillis()
-
-        while (!window.shouldClose()) {
-            val now = System.nanoTime()
-            delta += (now - lastTime) / updateTime
-            lastTime = now
-
-            if (delta >= 1) {
-                gameLogicHandler.handleGameLogic(deltaTime = delta)
-                updates++
-                delta--
-            }
-
-            window.forceUpdate();
-            frames++
-            if (System.currentTimeMillis() - timer > 1000) {
-                timer += 1000
-                frames = 0
-                updates = 0
-            }
-        }
-    }
 
     fun getGameLoopActiveTime(): Long {
         return System.currentTimeMillis() - initializeTime
@@ -51,7 +23,7 @@ open class GameLoop(
     }
 
     override fun run() {
-        handleGameLoop.run()
+        basicGameLoopMethod.run(window, updateTime, gameLogicHandler)
         runShutdownTasks()
     }
 
