@@ -1,7 +1,7 @@
 package engine.krisp.glfw
 
 import engine.krisp.KrispEngine
-import engine.krisp.position.Point
+import engine.krisp.position.Vector2F
 import engine.krisp.utils.Color
 import org.apache.logging.log4j.Logger
 import org.lwjgl.glfw.Callbacks.glfwFreeCallbacks
@@ -10,8 +10,6 @@ import org.lwjgl.glfw.GLFWErrorCallback
 import org.lwjgl.opengl.GL
 import org.lwjgl.opengl.GL11.*
 import org.lwjgl.system.MemoryStack.stackPush
-import kotlin.math.cos
-import kotlin.math.sin
 
 
 abstract class Window(
@@ -115,7 +113,7 @@ abstract class Window(
         this.keybindRegistry?.unregisterKeybind(keybind)
     }
 
-    fun drawLine(p1: Point, p2: Point, color: Color) {
+    fun drawLine(p1: Vector2F, p2: Vector2F, color: Color) {
         glBegin(GL_LINES)
         glColor4f(color.red, color.green, color.blue, color.alpha)
         glVertex2f(p1.x, p1.y)
@@ -123,7 +121,7 @@ abstract class Window(
         glEnd()
     }
 
-    fun drawTriangle(p1: Point, p2: Point, p3: Point, color: Color) {
+    fun drawTriangle(p1: Vector2F, p2: Vector2F, p3: Vector2F, color: Color) {
         glBegin(GL_TRIANGLES)
         glColor4f(color.red, color.green, color.blue, color.alpha)
         glVertex2f(p1.x, p1.y)
@@ -132,7 +130,7 @@ abstract class Window(
         glEnd()
     }
 
-    fun drawRect(point: Point, width: Float, height: Float, color: Color) {
+    fun drawRect(point: Vector2F, width: Float, height: Float, color: Color) {
         glBegin(GL_QUADS)
         glColor4f(color.red, color.green, color.blue, color.alpha)
         glVertex2f(point.x, point.y)
