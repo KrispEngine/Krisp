@@ -21,11 +21,9 @@ class Shader(
         }
 
         fun loadShader(
-            type: Int, path: String
+            type: Int, stream: FileInputStream
         ): Shader {
             val sb = StringBuilder()
-
-            val stream = FileInputStream(path)
             val reader = stream.bufferedReader()
 
             var line: String
