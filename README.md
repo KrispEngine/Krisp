@@ -11,6 +11,7 @@ Krisp is still very much a work in progress. A list of todo's can be found down 
 - [x] Shader support
 
 ## Todo
+- [ ] Scenes (After proper font rendering is implemented)
 - [ ] ECS (Entity Component System) based game logic and rendering
 - [ ] Physics engine
 - [ ] Font Rendering (Currently only supports bitmap fonts, but I want to add support for TTF fonts)
